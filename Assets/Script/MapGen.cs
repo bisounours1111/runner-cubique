@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using UnityEngine.SceneManagement;
+
 public class MapGen : MonoBehaviour
 {
     public GameObject player;
@@ -20,6 +22,8 @@ public class MapGen : MonoBehaviour
 
     public GameObject[] hearts;
 
+    public GameObject gameOver;
+
     void Update()
     {
 
@@ -27,7 +31,7 @@ public class MapGen : MonoBehaviour
 
         scoreText.text = "Score : " + (position.z / 10).ToString("0");
 
-        if (position.z > Z - 80)
+        if (position.z > Z - 30)
         {
             GameObject objet = Zone[Random.Range(0, Zone.Length)];
             Z += 12f;
@@ -73,9 +77,9 @@ public class MapGen : MonoBehaviour
                         {
                             if (hp < 3)
                             {
-                                int randomX = Random.Range(0, 20);
+                                int randomX = Random.Range(0, 100);
 
-                                if (randomX < 18)
+                                if (randomX < 95)
                                 {
                                     GameObject insObstacle = Instantiate(Obstacle, new Vector3(j * 1.5f, Y + Obstacle.transform.localScale.y / 2, positionObstacle.z + 3f * i), Quaternion.identity);
                                     insObstacle.transform.parent = insObjet.transform;
@@ -127,6 +131,13 @@ public class MapGen : MonoBehaviour
     public void TakeDamage()
     {
         hp--;
+
+        if (hp == 0)
+        {
+            GameOver();
+        }
+
+
         RawImage heart = hearts[hp].GetComponent<RawImage>();
         heart.color = new Color(0, 0, 0, 255);
     }
@@ -139,5 +150,17 @@ public class MapGen : MonoBehaviour
             RawImage heart = hearts[hp - 1].GetComponent<RawImage>();
             heart.color = new Color(255, 0, 0, 255);
         }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0;
+        gameOver.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

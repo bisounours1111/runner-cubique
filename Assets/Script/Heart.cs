@@ -17,6 +17,7 @@ public class Heart : MonoBehaviour
         if (other.tag == "Player")
         {
             mapGen.AddHp();
+            Destroy(gameObject);
         }
     }
 }
