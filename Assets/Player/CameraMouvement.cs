@@ -22,7 +22,9 @@ public class CameraMouvement : MonoBehaviour
 		CheckGround();
 		Vector3 pos = lPosition[currentPositionIndex] + player.transform.position;
 
-		transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z + 3f);
+
+
+		transform.position = new Vector3(player.transform.position.x, player.transform.position.y +1f, player.transform.position.z + 3f);
 
 		cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, pos, speed * Time.deltaTime);
 		cam.transform.eulerAngles = Vector3.Lerp(cam.transform.eulerAngles, lRotation[currentPositionIndex], (speed / 4) * Time.deltaTime);
@@ -31,7 +33,7 @@ public class CameraMouvement : MonoBehaviour
 	public void CheckGround()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(player.transform.position, Vector3.down, out hit, 1.1f))
+		if (Physics.Raycast(transform.position, Vector3.down, out hit, 3f))
 		{
 			if (hit.collider.tag == "Platform")
 			{

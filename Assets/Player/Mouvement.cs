@@ -31,18 +31,13 @@ public class Mouvement : MonoBehaviour
 
     void Update()
     {
-        anim.SetFloat("Movement", 0);
-
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             MoveToPosition(-1);
-            anim.SetFloat("Movement", -1);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             MoveToPosition(1);
-            anim.SetFloat("Movement", 1);
         }
         else if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y < 1f && isGrounded)
         {
@@ -54,8 +49,6 @@ public class Mouvement : MonoBehaviour
 
         Vector3 targetPosition = new Vector3(targetPositions[currentPositionIndex].x, transform.position.y, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
-
-        Debug.Log(targetPosition - transform.position);
 
         transform.Translate(transform.parent.forward * movementSpeed * Time.deltaTime);
     }

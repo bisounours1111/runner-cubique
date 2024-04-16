@@ -23,6 +23,7 @@ public class MapGen : MonoBehaviour
     public GameObject[] hearts;
 
     public GameObject gameOver;
+    public GameObject camera;
 
     void Update()
     {
@@ -148,7 +149,7 @@ public class MapGen : MonoBehaviour
         {
             hp++;
             RawImage heart = hearts[hp - 1].GetComponent<RawImage>();
-            heart.color = new Color(255, 0, 0, 255);
+            heart.color = new Color(255, 255, 255, 255);
         }
     }
 
@@ -156,6 +157,8 @@ public class MapGen : MonoBehaviour
     {
         Time.timeScale = 0;
         gameOver.SetActive(true);
+        camera.GetComponent<AudioSource>().Stop();
+        player.GetComponent<AudioSource>().Stop();
     }
 
     public void Restart()

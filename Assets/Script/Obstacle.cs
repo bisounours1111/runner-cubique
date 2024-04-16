@@ -9,13 +9,6 @@ public class Obstacle : MonoBehaviour
 
     public ParticleSystem particleSystem;
 
-    public void ChangeParticleRate(float newRate)
-    {
-        var emission = particleSystem.emission;
-        var rateOverTime = emission.rateOverTime;
-        rateOverTime.constant = newRate;
-        emission.rateOverTime = rateOverTime;
-    }
 
     private void Start()
     {
@@ -28,7 +21,6 @@ public class Obstacle : MonoBehaviour
         if (other.tag == "Player")
         {
             mapGen.TakeDamage();
-            ChangeParticleRate(30);
             DestroyAfterTime(0.5f);
 
         }
